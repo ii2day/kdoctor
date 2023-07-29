@@ -80,17 +80,17 @@ jobs:
           sha: '${{ github.sha }}'
 
       # for cherrypick.yaml, create a label
-      - name: Create cherry-pick label
-        continue-on-error: true
-        run: |
-          echo ${{ secrets.WELAN_PAT }} | gh auth login --with-token
-          branchLabelName="${{ env.LABEL_PREFIX_CHERRYPICK }}release-${{ env.RUN_YBranchName }}"
-          mainLabelName="${{ env.LABEL_PREFIX_CHERRYPICK }}main"
-          echo "try to create label "
-          gh label create ${branchLabelName} --force
-          (( $? !=0 )) && echo "error, failed to create label ${branchLabelName}"
-          gh label create ${mainLabelName} --force
-          (( $? !=0 )) && echo "error, failed to create label ${mainLabelName}"
+#      - name: Create cherry-pick label
+#        continue-on-error: true
+#        run: |
+#          echo ${{ secrets.WELAN_PAT }} | gh auth login --with-token
+#          branchLabelName="${{ env.LABEL_PREFIX_CHERRYPICK }}release-${{ env.RUN_YBranchName }}"
+#          mainLabelName="${{ env.LABEL_PREFIX_CHERRYPICK }}main"
+#          echo "try to create label "
+#          gh label create ${branchLabelName} --force
+#          (( $? !=0 )) && echo "error, failed to create label ${branchLabelName}"
+#          gh label create ${mainLabelName} --force
+#          (( $? !=0 )) && echo "error, failed to create label ${mainLabelName}"
 
   build-release-image:
     needs: get-tag
@@ -99,12 +99,12 @@ jobs:
       ref: ${{ needs.get-tag.outputs.tag }}
     secrets: inherit
 
-  release-changelog:
-    needs: [build-release-image, get-tag]
-    uses: ./.github/workflows/call-release-changelog.yaml
-    with:
-      dest_tag: ${{ needs.get-tag.outputs.tag }}
-    secrets: inherit
+#  release-changelog:
+#    needs: [build-release-image, get-tag]
+#    uses: ./.github/workflows/call-release-changelog.yaml
+#    with:
+#      dest_tag: ${{ needs.get-tag.outputs.tag }}
+#    secrets: inherit
 
   release-pages:
     needs: [build-release-image, get-tag]
@@ -114,7 +114,7 @@ jobs:
     secrets: inherit
 
   create-release:
-    needs: [ release-changelog, get-tag, release-pages]
+    needs: [ get-tag, release-pages]
     name: create release
     runs-on: ubuntu-latest
     steps:
