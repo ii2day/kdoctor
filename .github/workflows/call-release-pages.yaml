@@ -49,10 +49,10 @@ jobs:
               exit 1
           fi
 
-      - name: Checkout Code
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ steps.get_ref.outputs.ref }}
+#      - name: Checkout Code
+#        uses: actions/checkout@v3
+#        with:
+#          ref: ${{ steps.get_ref.outputs.ref }}
 
       - name: Build Site and chart
         run: |
