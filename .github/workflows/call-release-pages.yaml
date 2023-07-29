@@ -33,17 +33,39 @@ jobs:
     outputs:
       ref: ${{ env.RUN_REF }}
     steps:
+      - name: Get Ref
+        id: get_ref
+        run: |
+          pwd
+          ls
+          if ${{ inputs.ref != '' }}; then
+              echo "call by workflow_call"
+              echo "RUN_REF=${{ inputs.ref }}" >> $GITHUB_ENV
+          elif ${{ github.event_name == 'workflow_dispatch' }} ; then
+              echo "call by workflow_dispatch"
+              echo "RUN_REF=${{ github.event.inputs.ref }}" >> $GITHUB_ENV
+          else
+              echo "unexpected event: ${{ github.event_name }}"
+              exit 1
+          fi
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.get_ref.outputs.ref }}
+
       - name: Build Site and chart
         run: |
+          make build_doc
           make chart_package
 
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v3.1.1
-#        with:
-#          name: site_artifact
-#          path: output/docs/site.tar.gz
-#          retention-days: 0
-#          if-no-files-found: error
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: site_artifact
+          path: output/docs/site.tar.gz
+          retention-days: 0
+          if-no-files-found: error
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3.1.1
