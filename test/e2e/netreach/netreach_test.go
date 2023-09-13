@@ -74,7 +74,7 @@ var _ = Describe("testing netReach ", Label("netReach"), func() {
 		e = common.WaitKdoctorTaskDone(frame, netReach, pluginManager.KindNameNetReach, 120)
 		Expect(e).NotTo(HaveOccurred(), "wait netReach task finish")
 
-		success, e := common.CompareResult(frame, netReachName, pluginManager.KindNameNetReach, []string{}, reportNum)
+		success, e := common.CompareResult(frame, netReachName, pluginManager.KindNameNetReach, []string{}, reportNum, netReach)
 		Expect(e).NotTo(HaveOccurred(), "compare report and task")
 		Expect(success).To(BeTrue(), "compare report and task result")
 

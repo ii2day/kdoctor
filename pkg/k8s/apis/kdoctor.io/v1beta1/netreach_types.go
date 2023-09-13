@@ -37,26 +37,27 @@ type NetReachTarget struct {
 	IPv6 *bool `json:"ipv6,omitempty"`
 
 	// +kubebuilder:default=true
-	Endpoint bool `json:"endpoint,omitempty"`
+	Endpoint bool `json:"endpoint"`
 
 	// +kubebuilder:default=false
-	MultusInterface bool `json:"multusInterface,omitempty"`
+	MultusInterface bool `json:"multusInterface"`
 
 	// +kubebuilder:default=true
-	ClusterIP bool `json:"clusterIP,omitempty"`
+	ClusterIP bool `json:"clusterIP"`
 
 	// +kubebuilder:default=true
-	NodePort bool `json:"nodePort,omitempty"`
+	NodePort bool `json:"nodePort"`
 
 	// +kubebuilder:default=false
-	LoadBalancer bool `json:"loadBalancer,omitempty"`
-
-	// +kubebuilder:default=false
-	Ingress bool `json:"ingress,omitempty"`
+	LoadBalancer bool `json:"loadBalancer"`
 
 	// +kubebuilder:default=false
 	// +kubebuilder:validation:Optional
-	EnableLatencyMetric bool `json:"enableLatencyMetric,omitempty"`
+	Ingress bool `json:"ingress"`
+
+	// +kubebuilder:default=false
+	// +kubebuilder:validation:Optional
+	EnableLatencyMetric bool `json:"enableLatencyMetric"`
 }
 
 // scope(Namespaced or Cluster)
