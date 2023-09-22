@@ -114,6 +114,9 @@ type Work struct {
 	// Timeout in seconds.
 	Timeout int
 
+	/// RequestTimeSecond request in second
+	RequestTimeSecond int
+
 	// Qps is the rate limit in queries per second.
 	QPS int
 
@@ -145,6 +148,7 @@ type Work struct {
 	initOnce  sync.Once
 	results   chan *result
 	stopCh    chan struct{}
+	runCh     chan struct{}
 	start     time.Duration
 	startTime metav1.Time
 	report    *report
@@ -155,6 +159,10 @@ func (b *Work) Init() {
 	b.initOnce.Do(func() {
 		b.results = make(chan *result, MaxResultChannelSize)
 		b.stopCh = make(chan struct{}, b.Concurrency)
+		b.runCh = make(chan struct{}, b.QPS*b.RequestTimeSecond)
+		for i := 0; i < b.QPS*b.RequestTimeSecond; i++ {
+			b.runCh <- struct{}{}
+		}
 	})
 }
 
@@ -183,6 +191,7 @@ func (b *Work) Stop() {
 
 func (b *Work) Finish() {
 	close(b.results)
+	close(b.runCh)
 	total := b.now() - b.start
 	// Wait until the reporter is done.
 	<-b.report.done
@@ -191,6 +200,15 @@ func (b *Work) Finish() {
 
 func (b *Work) makeRequest(c *http.Client, wg *sync.WaitGroup) {
 	defer wg.Done()
+
+	select {
+	case <-b.runCh:
+		// get request
+	default:
+		// can't get request return
+		return
+	}
+
 	s := b.now()
 	var size int64
 	var dnsStart, connStart, resStart time.Duration
