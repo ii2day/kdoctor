@@ -30,7 +30,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agent
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -93,7 +93,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -156,7 +156,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -217,7 +217,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -281,7 +281,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -346,7 +346,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -409,7 +409,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -474,7 +474,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -536,7 +536,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -598,7 +598,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -660,7 +660,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -722,7 +722,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -787,7 +787,7 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 		// agentSpec
 		agentSpec := new(v1beta1.AgentSpec)
 		agentSpec.TerminationGracePeriodMinutes = &termMin
-		appHttpHealth.Spec.AgentSpec = *agentSpec
+		appHttpHealth.Spec.AgentSpec = agentSpec
 
 		// successCondition
 		successCondition := new(v1beta1.NetSuccessCondition)
@@ -834,5 +834,60 @@ var _ = Describe("testing appHttpHealth test ", Label("appHttpHealth"), func() {
 
 		e = common.CheckRuntimeDeadLine(frame, appHttpHealthName, pluginManager.KindNameAppHttpHealthy, 120)
 		Expect(e).NotTo(HaveOccurred(), "check task runtime resource delete")
+	})
+
+	It("Successfully testing using default daemonSet  as workload with Task AppHttpHealthy ", Label("E00014"), func() {
+		var e error
+		successRate := float64(1)
+		successMean := int64(1500)
+		crontab := "0 1"
+		appHttpHealthName := "apphttphealth-get" + tools.RandomName()
+
+		appHttpHealth := new(v1beta1.AppHttpHealthy)
+		appHttpHealth.Name = appHttpHealthName
+
+		// successCondition
+		successCondition := new(v1beta1.NetSuccessCondition)
+		successCondition.SuccessRate = &successRate
+		successCondition.MeanAccessDelayInMs = &successMean
+		appHttpHealth.Spec.SuccessCondition = successCondition
+
+		// target
+		target := new(v1beta1.AppHttpHealthyTarget)
+		target.Method = "GET"
+		if net.ParseIP(testSvcIP).To4() == nil {
+			target.Host = fmt.Sprintf("http://[%s]:%d/?task=%s", testSvcIP, httpPort, appHttpHealthName)
+		} else {
+			target.Host = fmt.Sprintf("http://%s:%d?task=%s", testSvcIP, httpPort, appHttpHealthName)
+		}
+		appHttpHealth.Spec.Target = target
+
+		// request
+		request := new(v1beta1.NetHttpRequest)
+		request.PerRequestTimeoutInMS = 2000
+		request.QPS = 10
+		request.DurationInSecond = 10
+		appHttpHealth.Spec.Request = request
+
+		// Schedule
+		Schedule := new(v1beta1.SchedulePlan)
+		Schedule.Schedule = &crontab
+		Schedule.RoundNumber = 1
+		Schedule.RoundTimeoutMinute = 1
+		appHttpHealth.Spec.Schedule = Schedule
+
+		e = frame.CreateResource(appHttpHealth)
+		Expect(e).NotTo(HaveOccurred(), "create appHttpHealth resource")
+
+		e = common.CheckRuntime(frame, appHttpHealth, pluginManager.KindNameAppHttpHealthy, 60)
+		Expect(e).NotTo(HaveOccurred(), "check task runtime spec")
+
+		e = common.WaitKdoctorTaskDone(frame, appHttpHealth, pluginManager.KindNameAppHttpHealthy, 120)
+		Expect(e).NotTo(HaveOccurred(), "wait appHttpHealth task finish")
+
+		success, e := common.CompareResult(frame, appHttpHealthName, pluginManager.KindNameAppHttpHealthy, testPodIPs, reportNum, appHttpHealth)
+		Expect(e).NotTo(HaveOccurred(), "compare report and task")
+		Expect(success).To(BeTrue(), "compare report and task result")
+		
 	})
 })
