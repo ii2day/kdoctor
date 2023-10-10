@@ -115,9 +115,12 @@ func (s *pluginManager) RunAgentController() {
 		time.Sleep(5 * time.Second)
 	}()
 
-	err = checkTaskExist(mgr)
-	if nil != err {
-		s.logger.Sugar().Fatalf("failed to get agent task '%s/%s', error: %v", types.AgentConfig.TaskKind, types.AgentConfig.TaskName, err)
+	// general agent skip check
+	if !types.AgentConfig.GeneralAgent {
+		err = checkTaskExist(mgr)
+		if nil != err {
+			s.logger.Sugar().Fatalf("failed to get agent task '%s/%s', error: %v", types.AgentConfig.TaskKind, types.AgentConfig.TaskName, err)
+		}
 	}
 }
 

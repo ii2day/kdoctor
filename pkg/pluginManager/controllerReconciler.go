@@ -221,7 +221,7 @@ func (s *pluginControllerReconciler) Reconcile(ctx context.Context, req reconcil
 		if err := s.client.Get(ctx, req.NamespacedName, &instance); err != nil {
 			s.logger.Sugar().Errorf("unable to fetch obj , error=%v", err)
 			// since we have OwnerReference for task corresponding runtime and service, we could just delete the tracker DB record directly
-			if errors.IsNotFound(err) && instance.DeletionTimestamp != nil {
+			if errors.IsNotFound(err) && instance.DeletionTimestamp != nil && instance.Spec.AgentSpec != nil {
 				s.tracker.DB.Delete(scheduler.BuildItem(*instance.Status.Resource, KindNameNetdns, instance.Name, nil))
 			}
 			return ctrl.Result{}, client.IgnoreNotFound(err)

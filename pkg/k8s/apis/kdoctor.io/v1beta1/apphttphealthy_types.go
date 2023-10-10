@@ -12,7 +12,7 @@ type AppHttpHealthySpec struct {
 
 	// +kubebuilder:validation:Optional
 	// +kubebuilder:default={kind: DaemonSet, hostNetwork: false, terminationGracePeriodMinutes: 60}
-	AgentSpec AgentSpec `json:"agentSpec,omitempty"`
+	AgentSpec *AgentSpec `json:"agentSpec,omitempty"`
 
 	// +kubebuilder:validation:Optional
 	Schedule *SchedulePlan `json:"schedule,omitempty"`
